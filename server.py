@@ -1,11 +1,14 @@
 from flask import Flask, render_template
+import crud
+from models import connect_to_db
 
 app = Flask(__name__)
 app.secret_key = "secret_pass"
 
 @app.route("/")
 def homepage():
-    return render_template("homepage.html")
+    users = crud.get_users()
+    return render_template("homepage.html", users=users)
 
 @app.route("/login")
 def login():
@@ -13,7 +16,7 @@ def login():
 
 @app.route("/collections")
 def all_collections():
-    pass
+    return render_template("all_collections.html")
 
 @app.route("/collections/<c_id>")
 def collection():
@@ -29,4 +32,5 @@ def wishlist():
  
 
 if __name__ == "__main__":
+    connect_to_db(app)
     app.run(debug=True)
