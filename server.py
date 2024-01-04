@@ -1,11 +1,11 @@
-from flask import Flask
+from flask import Flask, render_template
 
 app = Flask(__name__)
 app.secret_key = "secret_pass"
 
 @app.route("/")
 def homepage():
-    pass
+    return render_template("homepage.html")
 
 @app.route("/login")
 def login():

@@ -28,7 +28,7 @@ class Lego(db.Model):
     picture_path = db.Column(db.String)
     instructions_url = db.Column(db.String, nullable=True)
     user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"))
-    c_id = db.Column(db.Integer, db.ForeignKey("categories.c_id"))
+    c_id = db.Column(db.Integer, db.ForeignKey("categories.c_id"), nullable=True)
 
 
 class Comment(db.Model):
