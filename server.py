@@ -1,9 +1,9 @@
-from flask import Flask, render_template, redirect, url_for
+from flask import Flask, render_template, redirect, url_for, request
 from flask_login import LoginManager, current_user, login_user, logout_user, login_required
 from forms import LoginForm, LegoForm
 import crud
 from models import db, connect_to_db, User, Collection, Lego, Comment, Wishlist
-# import request
+
 # Do I need to import this?
 
 app = Flask(__name__)
@@ -23,19 +23,21 @@ def homepage():
     legos = crud.get_legos_by_user(current_user.user_id)
     return render_template("homepage.html", user=user, legos=legos)
 
-@app.route("/login", methods=["POST"])
+@app.route("/login", methods=["GET", "POST"])
 def login():
     login_form = LoginForm()
-    username = login_form.username.data
-    password = login_form.password.data
+    if login_form.validate_on_submit():
+        username = login_form.username.data
+        password = login_form.password.data
 
-    user = User.query.filter_by(username=username).first()
-    if user:
-        if user.password == password:
-            # I think this might be wrong
-            login_user(user)
-            return redirect(url_for("homepage"))
-    return "Incorrect credentials"
+        user = User.query.filter_by(username=username).first()
+        if user:
+            if user.password == password:
+                # I think this might be wrong
+                login_user(user)
+                return redirect(url_for("homepage"))
+        return "Incorrect credentials"
+    return render_template("login.html", login_form=login_form)
     # Could add flash messages
 
 @app.route("/logout")
@@ -44,9 +46,9 @@ def logout():
     return redirect(url_for("login"))
 
 @app.route("/collections")
-# @login_required
+@login_required
 def all_collections():
-    collections = crud.get_collections()
+    collections = crud.get_collections_by_user(current_user.user_id)
     # Need to edit to single user?
 
     return render_template("all_collections.html", collections=collections)
@@ -73,7 +75,7 @@ def wishlist():
     legos = crud.get_legos_by_wishlist(wishlist.w_id)
     return render_template("wishlist.html", legos=legos)
 
-@app.route("/add", methods=["POST"])
+@app.route("/add", methods=["GET", "POST"])
 def add_lego():
     lego_form = LegoForm()
 
@@ -87,9 +89,10 @@ def add_lego():
 
         db.session.add(new_lego)
         db.session.commit()
-    return redirect(url_for("homepage"))
-    # return render_template("add.html")
+        return redirect(url_for("homepage"))
+    return render_template("add.html", lego_form=lego_form)
  
+#  Update request to database
 
 if __name__ == "__main__":
     connect_to_db(app)

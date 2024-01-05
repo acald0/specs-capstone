@@ -5,7 +5,7 @@
     <h1>Welcome {{ current_user.username }}</h1>
     {% for lego in legos %}
         <li>
-            {{ current_user.lego }}
+            {{ lego.l_title }}
         </li>
     {% endfor %}
 {% endblock %}

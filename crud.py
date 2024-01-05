@@ -25,6 +25,9 @@ def create_collection(c_title, user_id):
 def get_collections():
     return Collection.query.all()
 
+def get_collections_by_user(user_id):
+    return Collection.query.filter_by(user_id=user_id).all()
+
 def get_collection_by_id(c_id):
     collection = Collection.query.get(c_id)
     return collection
