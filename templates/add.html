@@ -2,12 +2,17 @@
 {% block title %}Add{% endblock %}
 
 {% block body %}
-    <h1>Add Lego</h1>
-    <form action="/add" method="POST">
-        <div class="mb-3">
-            <label for="exampleFormControlTextarea1" class="form-label">Description</label>
-            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-        </div>
-        <button type="submit">Add Legos</button>
-    </form>
+<h2>Add Lego</h2>
+<form action="{{ url_for('add_lego') }}" method="POST">
+    {{ lego_form.csrf_token() }}
+    {{ lego_form.l_title.label }}
+    {{ lego_form.l_title }}
+    {{ lego_form.description.label }}
+    {{ lego_form.description }}
+    {{ lego_form.picture_path.label }}
+    {{ lego_form.picture_path }}
+    {{ lego_form.instructions_url.label }}
+    {{ lego_form.instructions_url }}
+    {{ lego_form.submit }}
+</form>
 {% endblock %}

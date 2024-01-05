@@ -1,6 +1,6 @@
 from flask import Flask, render_template, redirect, url_for
 from flask_login import LoginManager, current_user, login_user, logout_user, login_required
-from forms import LoginForm
+from forms import LoginForm, LegoForm
 import crud
 from models import db, connect_to_db, User, Collection, Lego, Comment, Wishlist
 # import request
@@ -57,14 +57,14 @@ def collection(c_id):
     legos = crud.get_legos_by_collection(c_id=c_id)
     return render_template("collection_details.html", legos=legos)
 
-@app.route("/add", methods=["GET", "POST"])
-# @login_required
-def add_legos():
-        # Why isn't this working?
-    # if request.method == "POST":
-    #     return redirect("/")
-    # else:
-        return render_template("add.html")
+# @app.route("/add", methods=["GET", "POST"])
+# # @login_required
+# def add_legos():
+#         # Why isn't this working?
+#     # if request.method == "POST":
+#     #     return redirect("/")
+#     # else:
+#         return render_template("add.html")
 
 @app.route("/wishlist")
 # @login_required
@@ -72,6 +72,23 @@ def wishlist():
     wishlist = crud.get_wishlist_by_user(current_user.user_id)
     legos = crud.get_legos_by_wishlist(wishlist.w_id)
     return render_template("wishlist.html", legos=legos)
+
+@app.route("/add", methods=["POST"])
+def add_lego():
+    lego_form = LegoForm()
+
+    if lego_form.validate_on_submit():
+        l_title = lego_form.l_title.data
+        description = lego_form.description.data
+        picture_path = lego_form.picture_path.data
+        instructions_url = lego_form.instructions_url.data
+
+        new_lego = Lego(l_title, description, picture_path, instructions_url)
+
+        db.session.add(new_lego)
+        db.session.commit()
+    return redirect(url_for("homepage"))
+    # return render_template("add.html")
  
 
 if __name__ == "__main__":
