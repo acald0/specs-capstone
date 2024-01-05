@@ -2,7 +2,9 @@ from flask import Flask, render_template, redirect, url_for
 from flask_login import LoginManager, current_user, login_user, logout_user, login_required
 from forms import LoginForm
 import crud
-from models import db, connect_to_db, User, Category, Lego, Comment, Wishlist
+from models import db, connect_to_db, User, Collection, Lego, Comment, Wishlist
+# import request
+# Do I need to import this?
 
 app = Flask(__name__)
 app.secret_key = "secret_pass"
@@ -17,8 +19,9 @@ def load_user(user_id):
 @app.route("/")
 # @login_required
 def homepage():
-    users = crud.get_users()
-    return render_template("homepage.html", users=users)
+    user = current_user
+    legos = crud.get_legos_by_user(current_user.user_id)
+    return render_template("homepage.html", user=user, legos=legos)
 
 @app.route("/login", methods=["POST"])
 def login():
@@ -43,22 +46,32 @@ def logout():
 @app.route("/collections")
 # @login_required
 def all_collections():
-    return render_template("all_collections.html")
+    collections = crud.get_collections()
+    # Need to edit to single user?
+
+    return render_template("all_collections.html", collections=collections)
 
 @app.route("/collections/<c_id>")
 # @login_required
-def collection():
-    pass
+def collection(c_id):
+    legos = crud.get_legos_by_collection(c_id=c_id)
+    return render_template("collection_details.html", legos=legos)
 
-@app.route("/add", methods=["POST"])
+@app.route("/add", methods=["GET", "POST"])
 # @login_required
 def add_legos():
-    pass
+        # Why isn't this working?
+    # if request.method == "POST":
+    #     return redirect("/")
+    # else:
+        return render_template("add.html")
 
 @app.route("/wishlist")
 # @login_required
 def wishlist():
-    pass
+    wishlist = crud.get_wishlist_by_user(current_user.user_id)
+    legos = crud.get_legos_by_wishlist(wishlist.w_id)
+    return render_template("wishlist.html", legos=legos)
  
 
 if __name__ == "__main__":

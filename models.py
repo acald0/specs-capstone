@@ -13,20 +13,22 @@ class User(db.Model, UserMixin):
 
     legos = db.relationship("Lego", backref="users", lazy=False)
 
+    collections = db.relationship("Collection", backref="users", lazy=False)
+
     # Should I add check_password?
 
     def get_id(self):
         return self.user_id
 
 
-class Category(db.Model):
-    __tablename__ = "categories"
+class Collection(db.Model):
+    __tablename__ = "collections"
 
     c_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     c_title = db.Column(db.String(50), unique=True)
     user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"))
 
-    legos = db.relationship("Lego", backref="categories", lazy=False)
+    legos = db.relationship("Lego", backref="collections", lazy=False)
 
 
 class Lego(db.Model):
@@ -38,7 +40,7 @@ class Lego(db.Model):
     picture_path = db.Column(db.String)
     instructions_url = db.Column(db.String, nullable=True)
     user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"))
-    c_id = db.Column(db.Integer, db.ForeignKey("categories.c_id"), nullable=True)
+    c_id = db.Column(db.Integer, db.ForeignKey("collections.c_id"), nullable=True)
 
     comments = db.relationship("Comment", backref="legos", lazy=False)
 
@@ -58,6 +60,8 @@ class Wishlist(db.Model):
     w_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"))
     lego_id = db.Column(db.Integer, db.ForeignKey("legos.lego_id"))
+
+    legos = db.relationship("Lego", backref="wishlists", lazy=False)
 
 
 def connect_to_db(app):

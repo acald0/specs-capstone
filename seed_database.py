@@ -1,6 +1,6 @@
 from os import system
 from server import app
-from models import db, connect_to_db, Lego, Category, Comment, User, Wishlist
+from models import db, connect_to_db, Lego, Collection, Comment, User, Wishlist
 
 system("dropdb lego-app")
 system("createdb lego-app")
@@ -16,10 +16,10 @@ with app.app_context():
     db.session.add_all([user1, user2, user3])
     db.session.commit()
 
-    category1 = Category(c_title="Star Wars", user_id=1)
-    category2 = Category(c_title="Harry Potter", user_id=1)
-    category3 = Category(c_title="Ninjago", user_id=2)
-    db.session.add_all([category1, category2, category3])
+    collection1 = Collection(c_title="Star Wars", user_id=1)
+    collection2 = Collection(c_title="Harry Potter", user_id=1)
+    collection3 = Collection(c_title="Ninjago", user_id=2)
+    db.session.add_all([collection1, collection2, collection3])
     db.session.commit()
 
     lego1 = Lego(l_title="Venator-Class Republic Attack Center", description="Star wars republic cruiser ship", picture_path="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTLRzq1-n22foNk2YLcLZSLZRpLxGY5bFkbDmiD0Xtw1mn97XjHhG4QbE9k0vHuZad1CFc&usqp=CAU", instructions_url="https://www.lego.com/en-us/service/buildinginstructions/75367?locale=en-us", user_id=1, c_id=1)

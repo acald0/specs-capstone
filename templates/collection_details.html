@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block title %}Collection{% endblock %}
+
+{% block body %}
+    {% for lego in legos %}
+        <li>
+            {{ lego.l_title }}
+        </li>
+    {% endfor %}
+{% endblock %}

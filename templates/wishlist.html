@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %}Wishlist{% endblock %}
+
+{% block body %}
+<h1>Wishlist</h1>
+    {% for lego in legos %}
+    <li>
+        {{ lego.l_title }}
+    </li>
+    {% endfor %}
+{% endblock %}

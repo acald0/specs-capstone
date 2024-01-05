@@ -1,4 +1,4 @@
-from models import db, User, Category, Lego, Comment, Wishlist, connect_to_db
+from models import db, User, Collection, Lego, Comment, Wishlist, connect_to_db
 
 
 def create_user(username, password):
@@ -17,17 +17,21 @@ def get_user_by_username(username):
     return User.query.filter(User.username == username).first()
 
 
-def create_category(c_title, user_id):
-    category = Category(c_title=c_title,user_id=user_id)
+def create_collection(c_title, user_id):
+    collection = Collection(c_title=c_title,user_id=user_id)
 
-    return category
+    return collection
 
-def get_categories():
-    return Category.query.all()
+def get_collections():
+    return Collection.query.all()
 
-def get_category_by_id(c_id):
-    category = Category.query.get(c_id)
-    return category
+def get_collection_by_id(c_id):
+    collection = Collection.query.get(c_id)
+    return collection
+
+def get_legos_by_collection(c_id):
+    legos = Lego.query.filter_by(c_id=c_id).all()
+    return legos
 
 def create_lego(l_title,description,picture_path, instructions_url, user_id, c_id):
     lego = Lego(l_title=l_title, description=description, picture_path=picture_path, instructions_url=instructions_url,user_id=user_id, c_id=c_id)
@@ -35,8 +39,16 @@ def create_lego(l_title,description,picture_path, instructions_url, user_id, c_i
     return lego
 
 def get_lego_by_id(lego_id):
-    lego = Lego.query.get(lego_id)
+    lego = Lego.query.get(lego_id).first()
     return lego
+
+def get_legos_by_user(user_id):
+    legos = Lego.query.filter_by(user_id=user_id).all()
+    return legos
+
+def get_legos_by_wishlist(w_id):
+    legos = Lego.query.filter_by(w_id=w_id).all()
+    return legos
 
 def create_comment(comment, user_id, lego_id):
     new_comment = Comment(comment=comment, user_id=user_id, lego_id=lego_id)
