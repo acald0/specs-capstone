@@ -1,14 +1,22 @@
 import os
 from flask_sqlalchemy import SQLAlchemy
+from flask_login import UserMixin
 
 db = SQLAlchemy()
 
-class User(db.Model):
+class User(db.Model, UserMixin):
     __tablename__ = "users"
 
     user_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     username = db.Column(db.String(50), unique=True)
     password = db.Column(db.String(100))
+
+    legos = db.relationship("Lego", backref="users", lazy=False)
+
+    # Should I add check_password?
+
+    def get_id(self):
+        return self.user_id
 
 
 class Category(db.Model):
@@ -17,6 +25,8 @@ class Category(db.Model):
     c_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     c_title = db.Column(db.String(50), unique=True)
     user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"))
+
+    legos = db.relationship("Lego", backref="categories", lazy=False)
 
 
 class Lego(db.Model):
@@ -29,6 +39,8 @@ class Lego(db.Model):
     instructions_url = db.Column(db.String, nullable=True)
     user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"))
     c_id = db.Column(db.Integer, db.ForeignKey("categories.c_id"), nullable=True)
+
+    comments = db.relationship("Comment", backref="legos", lazy=False)
 
 
 class Comment(db.Model):
