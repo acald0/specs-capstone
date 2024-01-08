@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Update{% endblock %}
+
+{% block body %}
+<h2>Update Lego</h2>
+<form action="{{ url_for('update_lego', lego_id=lego_id) }}" method="POST">
+    {{ lego_form.csrf_token() }}
+    {{ lego_form.l_title.label }}
+    {{ lego_form.l_title }}
+    {{ lego_form.description.label }}
+    {{ lego_form.description }}
+    {{ lego_form.picture_path.label }}
+    {{ lego_form.picture_path }}
+    {{ lego_form.instructions_url.label }}
+    {{ lego_form.instructions_url }}
+    {{ lego_form.submit }}
+</form>
+{% endblock %}

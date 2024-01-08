@@ -83,7 +83,7 @@ def add_lego():
         picture_path = lego_form.picture_path.data
         instructions_url = lego_form.instructions_url.data
 
-        new_lego = Lego(l_title, description, picture_path, instructions_url)
+        new_lego = Lego(l_title=l_title, description=description, picture_path=picture_path, instructions_url=instructions_url)
 
         db.session.add(new_lego)
         db.session.commit()
@@ -91,7 +91,7 @@ def add_lego():
     return render_template("add.html", lego_form=lego_form)
  
 #  Update request to database
-@app.route("/lego_set/<lego_id>", methods=["GET", "UPDATE", "POST"])
+@app.route("/lego_set/<lego_id>", methods=["GET", "POST"])
 def lego_set(lego_id):
     lego = Lego.query.filter_by(lego_id=lego_id).first()
     return render_template("lego_set.html", lego=lego)
@@ -101,6 +101,34 @@ def all_legos():
     user = current_user
     legos = crud.get_legos_by_user(current_user.user_id)
     return render_template("all_legos.html", user=user, legos=legos)
+
+@app.route("/update_lego/<lego_id>", methods=["GET", "POST"])
+def update_lego(lego_id):
+    lego = Lego.query.get(lego_id)
+    lego_form = LegoForm(obj=lego)
+
+    if lego_form.validate_on_submit():
+        lego.l_title = lego_form.l_title.data
+        lego.description = lego_form.description.data
+        lego.picture_path = lego_form.picture_path.data
+        lego.instructions_url = lego_form.instructions_url.data
+
+        db.session.commit()
+        return redirect(f"/lego_set/{lego_id}")
+    else:
+        return render_template("update.html", lego_form=lego_form, lego_id=lego_id)
+
+@app.route("/delete_lego/<lego_id>", methods =["GET", "POST"])
+def delete_lego(lego_id):
+    lego = Lego.query.get(lego_id)
+    c_id = lego.c_id
+    for wishlist in lego.wishlists:
+        db.session.delete(wishlist)
+    db.session.delete(lego)
+    db.session.commit()
+    return redirect(f"/collections/{c_id}")
+
+
 
 
 if __name__ == "__main__":

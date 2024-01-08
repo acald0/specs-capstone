@@ -12,6 +12,3 @@ class LegoForm(FlaskForm):
     picture_path = TextAreaField('Image', [validators.InputRequired()])
     instructions_url = URLField('Instructions link', [validators.Optional()])
     submit = SubmitField("Add")
-
-class editForm(FlaskForm):
-    pass

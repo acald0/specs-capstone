@@ -7,8 +7,8 @@
         <div class="card-body">
           <h5 class="card-title">{{ lego.l_title }}</h5>
           <p class="card-text">{{ lego.description }}</p>
-          <a href="/lego_set" class="btn btn-primary">Edit Lego</a>
-          <a href="/lego_set" class="btn btn-primary">Delete Lego</a>
+          <a href="/update_lego/{{ lego.lego_id }}" class="btn btn-primary">Edit Lego</a>
+          <a href="/delete_lego/{{ lego.lego_id }}" class="btn btn-primary">Delete Lego</a>
           
           <!-- Edit link and delete button -->
         </div>
