@@ -49,10 +49,6 @@ def get_legos_by_user(user_id):
     legos = Lego.query.filter_by(user_id=user_id).all()
     return legos
 
-def get_legos_by_wishlist(w_id):
-    legos = Lego.query.filter_by(w_id=w_id).all()
-    return legos
-
 def create_comment(comment, user_id, lego_id):
     new_comment = Comment(comment=comment, user_id=user_id, lego_id=lego_id)
 

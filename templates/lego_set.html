@@ -1,16 +1,13 @@
 {% extends 'base.html' %}
-{% block title %}Home{% endblock %}
+{% block title %}Collection{% endblock %}
 
 {% block body %}
-    <h1>Welcome {{ current_user.username }}</h1>
-    {% for lego in legos %}
-
     <div class="card" style="width: 18rem;">
         <img src="{{ lego.picture_path }}" class="card-img-top" alt="Picture of Lego set">
         <div class="card-body">
           <h5 class="card-title">{{ lego.l_title }}</h5>
           <p class="card-text">{{ lego.description }}</p>
-          <a href="#" class="btn btn-primary">Go somewhere</a>
+          <a href="/lego_set" class="btn btn-primary">View Details</a>
           <!-- Edit link and delete button -->
         </div>
     </div>

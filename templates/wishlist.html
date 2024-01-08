@@ -3,9 +3,9 @@
 
 {% block body %}
 <h1>Wishlist</h1>
-    {% for lego in legos %}
+    {% for wishlist in wishlists %}
     <li>
-        {{ lego.l_title }}
+        {{ wishlist.lego.l_title }}
     </li>
     {% endfor %}
 {% endblock %}

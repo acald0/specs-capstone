@@ -69,11 +69,10 @@ def collection(c_id):
 #         return render_template("add.html")
 
 @app.route("/wishlist")
-# @login_required
+@login_required
 def wishlist():
-    wishlist = crud.get_wishlist_by_user(current_user.user_id)
-    legos = crud.get_legos_by_wishlist(wishlist.w_id)
-    return render_template("wishlist.html", legos=legos)
+    wishlists = current_user.wishlists
+    return render_template("wishlist.html", wishlists=wishlists)
 
 @app.route("/add", methods=["GET", "POST"])
 def add_lego():
@@ -93,6 +92,12 @@ def add_lego():
     return render_template("add.html", lego_form=lego_form)
  
 #  Update request to database
+@app.route("/lego_set", methods=["GET", "UPDATE", "POST"])
+def lego_set(lego_id):
+    lego = Lego.query.filter_by(lego_id=lego_id).first()
+    return render_template("lego_set.html", lego=lego)
+
+
 
 if __name__ == "__main__":
     connect_to_db(app)

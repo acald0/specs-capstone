@@ -61,7 +61,8 @@ class Wishlist(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"))
     lego_id = db.Column(db.Integer, db.ForeignKey("legos.lego_id"))
 
-    legos = db.relationship("Lego", backref="wishlists", lazy=False)
+    lego = db.relationship("Lego", backref="wishlists", lazy=False)
+    user = db.relationship("User", backref="wishlists", lazy=False)
 
 
 def connect_to_db(app):

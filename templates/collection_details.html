@@ -3,8 +3,15 @@
 
 {% block body %}
     {% for lego in legos %}
-        <li>
-            {{ lego.l_title }}
-        </li>
+
+    <div class="card" style="width: 18rem;">
+        <img src="{{ lego.picture_path }}" class="card-img-top" alt="Picture of Lego set">
+        <div class="card-body">
+          <h5 class="card-title">{{ lego.l_title }}</h5>
+          <p class="card-text">{{ lego.description }}</p>
+          <a href="/lego_set" class="btn btn-primary">View Lego</a>
+          <!-- Edit link and delete button -->
+        </div>
+    </div>
     {% endfor %}
 {% endblock %}

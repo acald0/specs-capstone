@@ -5,11 +5,15 @@
 <h1>Collections</h1>
 <ul>
     {% for collection in collections %}
-    <li>
-        <a href="/collections/{{ collection.c_id }}">
-            {{ collection.c_title }}
-        </a>
-    </li>
+
+    <div class="card">
+        <div class="card-body">
+            <a href="/collections/{{ collection.c_id }}">
+                {{ collection.c_title }}
+            </a>
+        </div>
+    </div>
+
     {% endfor %}
 </ul>
 {% endblock %}
