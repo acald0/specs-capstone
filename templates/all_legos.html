@@ -2,8 +2,7 @@
 {% block title %}Home{% endblock %}
 
 {% block body %}
-    <h1>Welcome {{ current_user.username }}</h1>
-    <h3>All Legos in Brick House database:</h3>
+    <h1>All of {{ current_user.username }}'s Legos</h1>
     {% for lego in legos %}
 
     <div class="card" style="width: 18rem;">
@@ -11,7 +10,7 @@
         <div class="card-body">
           <h5 class="card-title">{{ lego.l_title }}</h5>
           <p class="card-text">{{ lego.description }}</p>
-          <a href="/lego_set/{{ lego_id }}" class="btn btn-primary">View Lego</a>
+          <a href="/lego_set/<lego_id>" class="btn btn-primary">View Lego</a>
           <!-- Edit link and delete button -->
         </div>
     </div>

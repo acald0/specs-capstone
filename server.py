@@ -19,9 +19,8 @@ def load_user(user_id):
 @app.route("/")
 # @login_required
 def homepage():
-    user = current_user
-    legos = crud.get_legos_by_user(current_user.user_id)
-    return render_template("homepage.html", user=user, legos=legos)
+    legos = Lego.query.all()
+    return render_template("homepage.html",legos=legos)
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -92,11 +91,16 @@ def add_lego():
     return render_template("add.html", lego_form=lego_form)
  
 #  Update request to database
-@app.route("/lego_set", methods=["GET", "UPDATE", "POST"])
+@app.route("/lego_set/<lego_id>", methods=["GET", "UPDATE", "POST"])
 def lego_set(lego_id):
     lego = Lego.query.filter_by(lego_id=lego_id).first()
     return render_template("lego_set.html", lego=lego)
 
+@app.route("/all_legos")
+def all_legos():
+    user = current_user
+    legos = crud.get_legos_by_user(current_user.user_id)
+    return render_template("all_legos.html", user=user, legos=legos)
 
 
 if __name__ == "__main__":
