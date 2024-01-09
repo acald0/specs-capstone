@@ -128,7 +128,10 @@ def delete_lego(lego_id):
     db.session.commit()
     return redirect(f"/collections/{c_id}")
 
-
+@app.route("/add_to_wishlist/<lego_id>", methods = ["GET", "POST"])
+def add_wishlist(lego_id):
+    lego = Lego.query.get(lego_id)
+    
 
 
 if __name__ == "__main__":

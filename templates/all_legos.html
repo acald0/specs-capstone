@@ -10,8 +10,9 @@
         <div class="card-body">
           <h5 class="card-title">{{ lego.l_title }}</h5>
           <p class="card-text">{{ lego.description }}</p>
-          <a href="/lego_set/<lego_id>" class="btn btn-primary">View Lego</a>
-          <!-- Edit link and delete button -->
+          <a href="/lego_set/{{ lego.lego_id }}" class="btn btn-primary">View Lego</a>
+          <a href="/lego_set/{{ lego.lego_id }}" class="btn btn-primary">View Lego</a>
+          
         </div>
     </div>
     {% endfor %}
