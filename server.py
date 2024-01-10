@@ -1,6 +1,6 @@
 from flask import Flask, render_template, redirect, url_for, request
 from flask_login import LoginManager, current_user, login_user, logout_user, login_required
-from forms import LoginForm, LegoForm
+from forms import LoginForm, LegoForm, CollectionForm
 import crud
 from models import db, connect_to_db, User, Collection, Lego, Comment, Wishlist
 
@@ -82,7 +82,19 @@ def add_lego():
         return redirect(url_for("homepage"))
     return render_template("add.html", lego_form=lego_form)
  
-#  Update request to database
+@app.route("/add_collection", methods=["GET", "POST"])
+def add_collection():
+    collection_form = CollectionForm()
+    if collection_form.validate_on_submit():
+        c_title = collection_form.c_title.data
+        user_id = current_user.user_id
+        
+        new_collection = Collection(c_title=c_title,user_id=user_id)
+        db.session.add(new_collection)
+        db.session.commit()
+        return redirect(url_for("all_collections"))
+    return render_template("add_collection.html", collection_form=collection_form)
+
 @app.route("/lego_set/<lego_id>", methods=["GET", "POST"])
 def lego_set(lego_id):
     lego = Lego.query.filter_by(lego_id=lego_id).first()

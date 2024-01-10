@@ -12,3 +12,7 @@ class LegoForm(FlaskForm):
     picture_path = TextAreaField('Image', [validators.InputRequired()])
     instructions_url = URLField('Instructions link', [validators.Optional()])
     submit = SubmitField("Add")
+
+class CollectionForm(FlaskForm):
+    c_title = StringField('Collection Name', [validators.InputRequired()])
+    submit = SubmitField("Add Collection")
