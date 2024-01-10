@@ -26,7 +26,7 @@ with app.app_context():
     lego2 = Lego(l_title="Imperial Light Cruiser", description="Star wars Imperial cruiser ship", picture_path="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQj0NSIGxYHuq7DEdVu2TCLe3_eXbI8chb7Hg&usqp=CAU", user_id=1, c_id=1)
     lego3 = Lego(l_title="The Battle of Hogwarts", description="Hogwarts set with fighting characters", picture_path="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQO126K1qEQy9HiMUulWuHLY561piqOOqYwOMcjU2fU1Fw-926KVg1JvOGiSj-j4KejQa0&usqp=CAU", user_id=1, c_id=2)
     lego4 = Lego(l_title="Misfortune's Keep", description="Ninjago set featuring air ship", picture_path="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQN7ibTlyTt5kwHbRrXW6f_2nZtvaUDCMB0nw&usqp=CAU", instructions_url="https://www.lego.com/en-us/service/buildinginstructions/70605", user_id=2, c_id=3)
-    lego5 = Lego(l_title="Welcome to Apocalypseberg", description="Lego Movie Staut of Liberty set", picture_path="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCINScNI7OOPG9pa_equA3nTrLbYGfdkZQng&usqp=CAU", user_id=3)
+    lego5 = Lego(l_title="Welcome to Apocalypseberg", description="Lego Movie Statue of Liberty set", picture_path="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCINScNI7OOPG9pa_equA3nTrLbYGfdkZQng&usqp=CAU", user_id=3)
     db.session.add_all([lego1, lego2, lego3, lego4, lego5])
     db.session.commit()
 

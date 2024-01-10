@@ -10,6 +10,9 @@
         <div class="card-body">
           <h5 class="card-title">{{ wishlist.lego.l_title }}</h5>
           <p class="card-text">{{ wishlist.lego.description }}</p>
+          <a href="{{ wishlist.lego.instructions_url }}" class="link">Instructions</a>
+          <br>
+          <br>
           <a href="/lego_set/{{ wishlist.lego.lego_id }}" class="btn btn-primary">View Lego</a>
           <!-- Edit link and delete button -->
         </div>
