@@ -58,14 +58,6 @@ def collection(c_id):
     legos = crud.get_legos_by_collection(c_id=c_id)
     return render_template("collection_details.html", legos=legos)
 
-# @app.route("/add", methods=["GET", "POST"])
-# # @login_required
-# def add_legos():
-#         # Why isn't this working?
-#     # if request.method == "POST":
-#     #     return redirect("/")
-#     # else:
-#         return render_template("add.html")
 
 @app.route("/wishlist")
 @login_required
@@ -128,10 +120,13 @@ def delete_lego(lego_id):
     db.session.commit()
     return redirect(f"/collections/{c_id}")
 
-@app.route("/add_to_wishlist/<lego_id>", methods = ["GET", "POST"])
+@app.route("/add_wishlist/<lego_id>", methods = ["GET", "POST"])
 def add_wishlist(lego_id):
     lego = Lego.query.get(lego_id)
-    
+    new_wishlist = Wishlist(user_id=current_user.user_id, lego_id=lego_id)
+    db.session.add(new_wishlist)
+    db.session.commit()
+    return redirect("/")
 
 
 if __name__ == "__main__":
