@@ -2,20 +2,25 @@
 {% block title %}Wishlist{% endblock %}
 
 {% block body %}
-<h1>Wishlist</h1>
-    {% for wishlist in wishlists %}
+<div class="d-flex justify-content-center align-items-center">
+    <h1>Wishlist</h1>
+</div>
 
-    <div class="card m-4" style="width: 18rem;">
-        <img src="{{ wishlist.lego.picture_path }}" class="card-img-top" alt="Picture of Lego set">
-        <div class="card-body">
-          <h5 class="card-title">{{ wishlist.lego.l_title }}</h5>
-          <p class="card-text">{{ wishlist.lego.description }}</p>
-          <a href="{{ wishlist.lego.instructions_url }}" class="link">Instructions</a>
-          <br>
-          <br>
-          <a href="/lego_set/{{ wishlist.lego.lego_id }}" class="btn btn-primary">View Lego</a>
-          <!-- Edit link and delete button -->
+    <div class="row row-cols-1 row-cols-md-3 g-4 align-items-start justify-content-center">
+        {% for wishlist in wishlists %}
+
+        <div class="card m-4" style="width: 18rem;">
+            <img src="{{ wishlist.lego.picture_path }}" class="card-img-top" alt="Picture of Lego set">
+            <div class="card-body">
+            <h5 class="card-title">{{ wishlist.lego.l_title }}</h5>
+            <p class="card-text">{{ wishlist.lego.description }}</p>
+            <a href="{{ wishlist.lego.instructions_url }}" class="link">Instructions</a>
+            <br>
+            <br>
+            <a href="/lego_set/{{ wishlist.lego.lego_id }}" class="btn btn-primary">View Lego</a>
+            <!-- Edit link and delete button -->
+            </div>
         </div>
+        {% endfor %}
     </div>
-    {% endfor %}
 {% endblock %}

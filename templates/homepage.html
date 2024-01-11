@@ -2,7 +2,7 @@
 {% block title %}Home{% endblock %}
 
 {% block body %}
-    <div class="d-flex justify-content-center align-items-center">
+    <div class="d-flex justify-content-center align-items-center mt-3">
         <h1>Welcome {{ current_user.username }}!</h1>
     </div>
 
@@ -11,7 +11,7 @@
     </div>
 
 
-    <div class="row row-cols-1 row-cols-md-3 g-4 align-items-start">
+    <div class="row row-cols-1 row-cols-md-3 g-4 align-items-start justify-content-center">
         {% for lego in legos %}
         <div class="col-sm-6">
             <div class="card m-4" style="width: 18rem;">

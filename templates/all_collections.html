@@ -2,12 +2,15 @@
 {% block title %}Collections{% endblock %}
 
 {% block body %}
-<h1>Collections</h1>
+
+<div class="d-flex justify-content-center align-items-center">
+    <h1>Collections</h1>
+</div>
+
 <ul>
     {% for collection in collections %}
 
-    <div class="card d-flex align-items-center m-4">
-        <!-- not working -->
+    <div class="card d-flex align-items-center">
         <div class="card-body">
             <a href="/collections/{{ collection.c_id }}">
                 {{ collection.c_title }}

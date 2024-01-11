@@ -47,7 +47,6 @@ def logout():
 @login_required
 def all_collections():
     collections = crud.get_collections_by_user(current_user.user_id)
-    # Need to edit to single user?
 
     return render_template("all_collections.html", collections=collections)
 
@@ -55,7 +54,8 @@ def all_collections():
 @login_required
 def collection(c_id):
     legos = crud.get_legos_by_collection(c_id=c_id)
-    return render_template("collection_details.html", legos=legos)
+    collection = crud.get_collection_by_id(c_id=c_id)
+    return render_template("collection_details.html", legos=legos, collection=collection)
 
 
 @app.route("/wishlist")
