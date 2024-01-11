@@ -2,11 +2,15 @@
 {% block title %}Add Collection{% endblock %}
 
 {% block body %}
-<h2>Add Lego</h2>
-<form action="{{ url_for('add_collection') }}" method="POST">
-    {{ collection_form.csrf_token() }}
-    {{ collection_form.c_title.label }}
-    {{ collection_form.c_title }}
-    {{ collection_form.submit }}
-</form>
+    <div class="d-flex justify-content-center align-items-center mt-3">
+        <h2>Add Collection</h2>
+    </div>
+    <div class="d-flex justify-content-center align-items-center mt-3">
+        <form class="d-flex flex-column mb-3" action="{{ url_for('add_collection') }}" method="POST">
+            {{ collection_form.csrf_token() }}
+            {{ collection_form.c_title.label }}
+            {{ collection_form.c_title }}
+            {{ collection_form.submit }}
+        </form>
+    </div>
 {% endblock %}
