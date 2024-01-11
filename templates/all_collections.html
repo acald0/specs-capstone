@@ -7,10 +7,10 @@
         <h1>Collections</h1>
     </div>
 
-    <div class="d-flex justify-content-center">
+    <div class="d-flex flex-column justify-content-center align-items-center mt-3">
             {% for collection in collections %}
 
-            <div class="card d-flex align-items-center w-25">
+            <div class="card d-flex align-items-center w-25 mb-3">
                 <div class="card-body">
                     <a href="/collections/{{ collection.c_id }}">
                         {{ collection.c_title }}
