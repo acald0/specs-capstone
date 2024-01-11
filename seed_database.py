@@ -10,7 +10,7 @@ connect_to_db(app)
 with app.app_context():
     db.create_all()
 
-    user1 = User(username="UncleBobbyB", password="legopass")
+    user1 = User(username="testuser", password="test")
     user2 = User(username="FrankinTankin", password="didyouknowthat")
     user3 = User(username="Guy", password="Yegoyand")
     db.session.add_all([user1, user2, user3])

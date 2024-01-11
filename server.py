@@ -73,8 +73,9 @@ def add_lego():
         description = lego_form.description.data
         picture_path = lego_form.picture_path.data
         instructions_url = lego_form.instructions_url.data
+        user_id = current_user.user_id
 
-        new_lego = Lego(l_title=l_title, description=description, picture_path=picture_path, instructions_url=instructions_url)
+        new_lego = Lego(l_title=l_title, description=description, picture_path=picture_path, instructions_url=instructions_url, user_id=user_id)
 
         db.session.add(new_lego)
         db.session.commit()
