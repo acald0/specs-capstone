@@ -52,7 +52,7 @@ def all_collections():
     return render_template("all_collections.html", collections=collections)
 
 @app.route("/collections/<c_id>")
-# @login_required
+@login_required
 def collection(c_id):
     legos = crud.get_legos_by_collection(c_id=c_id)
     return render_template("collection_details.html", legos=legos)

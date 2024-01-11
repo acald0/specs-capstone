@@ -2,23 +2,35 @@
 {% block title %}Home{% endblock %}
 
 {% block body %}
-    <h1>Welcome {{ current_user.username }}</h1>
-    <h3>All Legos in Brick House database:</h3>
-    {% for lego in legos %}
-
-    <div class="card" style="width: 18rem;">
-        <img src="{{ lego.picture_path }}" class="card-img-top" alt="Picture of Lego set">
-        <div class="card-body">
-          <h5 class="card-title">{{ lego.l_title }}</h5>
-          <br>
-          <p class="card-text">{{ lego.description }}</p>
-          <a href="{{ lego.instructions_url }}" class="link">Instructions</a>
-          <br>
-          <br>
-          <a href="/lego_set/{{ lego.lego_id }}" class="btn btn-primary">View Lego</a>
-          <a href="/add_wishlist/{{ lego.lego_id }}" class="btn btn-primary">Add to Wishlist</a>
-
-        </div>
+    <div class="d-flex justify-content-center align-items-center">
+        <h1>Welcome {{ current_user.username }}!</h1>
     </div>
-    {% endfor %}
+
+    <div class="d-flex justify-content-center align-items-center">
+        <h3>All Legos in Brick House database:</h3>
+    </div>
+
+
+    <div class="row row-cols-1 row-cols-md-3 g-4 align-items-start">
+        {% for lego in legos %}
+        <div class="col-sm-6">
+            <div class="card m-4" style="width: 18rem;">
+                <img src="{{ lego.picture_path }}" class="card-img-top" alt="Picture of Lego set">
+                <div class="card-body">
+                <h5 class="card-title">{{ lego.l_title }}</h5>
+                <br>
+                <p class="card-text">{{ lego.description }}</p>
+                <a href="{{ lego.instructions_url }}" class="link">Instructions</a>
+                <br>
+                <br>
+                <a href="/lego_set/{{ lego.lego_id }}" class="btn btn-primary">View Lego</a>
+                <br>
+                <a href="/add_wishlist/{{ lego.lego_id }}" class="btn btn-primary">Add to Wishlist</a>
+
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>  
+
 {% endblock %}
