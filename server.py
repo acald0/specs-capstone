@@ -1,10 +1,9 @@
 from flask import Flask, render_template, redirect, url_for, request
 from flask_login import LoginManager, current_user, login_user, logout_user, login_required
-from forms import LoginForm, LegoForm, CollectionForm
+from forms import LoginForm, LegoForm, CollectionForm, LegoCollectionForm
 import crud
 from models import db, connect_to_db, User, Collection, Lego, Comment, Wishlist
 
-# Do I need to import this?
 
 app = Flask(__name__)
 app.secret_key = "secret_pass"
@@ -95,6 +94,14 @@ def add_collection():
         return redirect(url_for("all_collections"))
     return render_template("add_collection.html", collection_form=collection_form)
 
+@app.route("/lego_to_collection/<lego_id>", methods=["POST"])
+def lego_to_collection(lego_id):
+    lego_collection_form = LegoCollectionForm()
+    lego = Lego.query.get(lego_id)
+    lego.c_id = lego_collection_form.dropdown.data
+    db.session.commit()
+    return redirect(url_for("all_legos"))
+
 @app.route("/lego_set/<lego_id>", methods=["GET", "POST"])
 def lego_set(lego_id):
     lego = Lego.query.filter_by(lego_id=lego_id).first()
@@ -102,9 +109,11 @@ def lego_set(lego_id):
 
 @app.route("/all_legos")
 def all_legos():
+    lego_collection_form = LegoCollectionForm()
+    lego_collection_form.update_choices(current_user.collections)
     user = current_user
     legos = crud.get_legos_by_user(current_user.user_id)
-    return render_template("all_legos.html", user=user, legos=legos)
+    return render_template("all_legos.html", user=user, legos=legos, lego_collection_form=lego_collection_form)
 
 @app.route("/update_lego/<lego_id>", methods=["GET", "POST"])
 def update_lego(lego_id):

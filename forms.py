@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import PasswordField, StringField, TextAreaField, SubmitField, validators, URLField
+from wtforms import PasswordField, StringField, TextAreaField, SubmitField, validators, URLField, SelectField
 
 class LoginForm(FlaskForm):
     username = StringField('Username', [validators.InputRequired()])
@@ -16,3 +16,14 @@ class LegoForm(FlaskForm):
 class CollectionForm(FlaskForm):
     c_title = StringField('Collection Name', [validators.InputRequired()])
     submit = SubmitField("Add Collection")
+
+class LegoCollectionForm(FlaskForm):
+    dropdown = SelectField('Choose Collection: ')
+    submit = SubmitField("Add to Collection")
+    
+    def update_choices(self, collections):
+        self.dropdown.choices = []
+        for collection in collections:
+            new_tuple = (collection.c_id, collection.c_title)
+            self.dropdown.choices.append(new_tuple)
+        
